@@ -4,22 +4,44 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
 from app.application import Application
 
+# Allure command:
+# python3 -m behave -f allure_behave.formatter:AllureFormatter -o test_results/feature/test/cureskin_search_results.feature
+
 
 def browser_init(context):
     # """
     # :param context: Behave context
     # """
 
+
+
+
     #### CHROME-CROSS BROWSER- DEFAULT BROWSER ####
     # driver_path = ChromeDriverManager().install()
     # service = Service(driver_path)
-    # context.driver = webdriver.Chrome(service=service)
+
+
+
+
+    #### RUN ON CHROME FOR TESTING: IN THE CASE DEFAULT CHROME DOESNT WORK ####
+    service = Service(executable_path='/Users/stephenokonkwo/Desktop/cureskin_project/chromedriver')
+
+    context.driver = webdriver.Chrome(service=service)
+
+
+
 
     #### FIREFOX-CROSS BROWSER ####
     # context.driver = webdriver.Firefox(executable_path='')
 
+
+
+
     #### SAFARI-CROSS BROWSER ####
     # context.driver = webdriver.Safari()
+
+
+
 
     #### HEADLESS MODE ####
     # driver_path = ChromeDriverManager().install()
@@ -32,6 +54,9 @@ def browser_init(context):
     #     service=service
     # )
 
+
+
+
     #### BROWSERSTACK ####
     # desired_cap = {
     #     'browser': 'Firefox',
@@ -43,6 +68,18 @@ def browser_init(context):
     # bs_key = ''
     # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
     # context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
+
+
+
+
+    #### MOBILE EMULATOR ####
+    # mobile_emulation = {"deviceName": "iPhone 12 Pro"}
+    #
+    # chrome_options = webdriver.ChromeOptions()
+    #
+    # chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+    #
+    # context.driver = webdriver.Chrome(options=chrome_options)
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
